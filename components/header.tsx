@@ -1,44 +1,45 @@
-"use client"
+"use client";
 
-import { useLanguage } from "@/components/language-provider"
-import { ModeToggle } from "@/components/mode-toggle"
-import { Button } from "@/components/ui/button"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
-import { Calculator, History } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useLanguage } from "@/components/language-provider";
+import { ModeToggle } from "@/components/mode-toggle";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { useEffect, useState } from "react";
 
 export default function Header() {
-  const { language, setLanguage, t } = useLanguage()
-  const [isInstallable, setIsInstallable] = useState(false)
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
-  const [view, setView] = useState<"calculator" | "history">("calculator")
+  const { language, setLanguage, t } = useLanguage();
+  const [isInstallable, setIsInstallable] = useState(false);
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [view, setView] = useState<"calculator" | "history">("calculator");
 
   useEffect(() => {
     const handleBeforeInstallPrompt = (e: Event) => {
-      e.preventDefault()
-      setDeferredPrompt(e)
-      setIsInstallable(true)
-    }
+      e.preventDefault();
+      setDeferredPrompt(e);
+      setIsInstallable(true);
+    };
 
-    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handleBeforeInstallPrompt)
-    }
-  }, [])
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt
+      );
+    };
+  }, []);
 
   const handleInstall = async () => {
-    if (!deferredPrompt) return
+    if (!deferredPrompt) return;
 
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
 
     if (outcome === "accepted") {
-      setIsInstallable(false)
+      setIsInstallable(false);
     }
 
-    setDeferredPrompt(null)
-  }
+    setDeferredPrompt(null);
+  };
 
   return (
     <header className="flex flex-col gap-4 mb-6">
@@ -48,7 +49,9 @@ export default function Header() {
           <ToggleGroup
             type="single"
             value={language}
-            onValueChange={(value) => value && setLanguage(value as "en" | "te")}
+            onValueChange={(value) =>
+              value && setLanguage(value as "en" | "te")
+            }
           >
             <ToggleGroupItem value="en" aria-label="English">
               EN
@@ -61,7 +64,7 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="flex justify-between items-center">
+      {/* <div className="flex justify-between items-center">
         <ToggleGroup
           type="single"
           value={view}
@@ -82,7 +85,7 @@ export default function Header() {
             {t("installApp")}
           </Button>
         )}
-      </div>
+      </div> */}
     </header>
-  )
+  );
 }

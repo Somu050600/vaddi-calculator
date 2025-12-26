@@ -39,7 +39,7 @@ export default function Calculator() {
   const { t } = useLanguage() as { t: (key: string) => string };
   const { toast } = useToast();
   const [principal, setPrincipal] = useState<string>("");
-  const [interestRate, setInterestRate] = useState<string>("");
+  const [interestRate, setInterestRate] = useState<string>("1.5");
   const [isPercentMode, setIsPercentMode] = useState<boolean>(false);
   const [startDate, setStartDate] = useState<Date | undefined>(new Date());
   const [endDate, setEndDate] = useState<Date | undefined>(new Date());
@@ -270,14 +270,14 @@ export default function Calculator() {
                 ₹{formatIndianCurrency(result.total)}
               </div>
             </div>
-            <div className="pt-2 border-t">
+            {/* <div className="pt-2 border-t">
               <div className="text-sm font-medium text-muted-foreground">
                 {t("monthlyInterestRate")}
               </div>
               <div className="text-lg font-semibold">
                 {result.monthlyRate.toFixed(2)}% {t("perMonth")}
               </div>
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       )}
