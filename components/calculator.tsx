@@ -25,7 +25,7 @@ import {
   formatIndianCurrency,
   getDurationText,
 } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const HierarchicalDatePicker = dynamic(
   () =>
@@ -50,6 +50,7 @@ export default function Calculator() {
     total: number;
     monthlyRate: number;
   } | null>(null);
+  const resultRef = useRef<HTMLDivElement>(null);
 
   // Update duration text when dates change
   useEffect(() => {
@@ -122,6 +123,11 @@ export default function Calculator() {
     };
 
     setResult(calculationResult);
+
+    // Scroll to result after state update
+    setTimeout(() => {
+      resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
 
     // Save calculation
     const calculation: Calculation = {
@@ -239,7 +245,7 @@ export default function Calculator() {
       </Card>
 
       {result && (
-        <Card>
+        <Card ref={resultRef}>
           <CardHeader>
             <CardTitle>{t("results")}</CardTitle>
           </CardHeader>

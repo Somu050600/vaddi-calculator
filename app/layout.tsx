@@ -14,7 +14,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Vaddi Calculator",
   description: "Calculate interest and manage loan calculations",
-  manifest: "/manifest.json",
+  manifest: "/manifest.webmanifest",
   icons: [
     { rel: "icon", url: "/favicon.ico" },
     { rel: "apple-touch-icon", url: "/icon-192x192.png" },

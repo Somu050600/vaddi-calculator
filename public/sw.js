@@ -1,4 +1,4 @@
-const CACHE_NAME = "vaddi-calculator-v1";
+const CACHE_NAME = "vaddi-calculator-v2";
 
 // Files to cache for offline use
 const urlsToCache = [
@@ -6,6 +6,7 @@ const urlsToCache = [
   "/manifest.webmanifest",
   "/icon-192x192.png",
   "/icon-512x512.png",
+  "/apple-icon.png",
 ];
 
 self.addEventListener("install", (event) => {
