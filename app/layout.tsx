@@ -1,6 +1,7 @@
 import { LanguageProvider } from "@/components/language-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 import type { Metadata, Viewport } from "next/types";
 import type React from "react";
 import "./globals.css";
@@ -46,6 +47,19 @@ export default function RootLayout({
         >
           <LanguageProvider>{children}</LanguageProvider>
         </ThemeProvider>
+        <Script
+          id="sw-register"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js')
+                  .then(reg => console.log('SW registered:', reg.scope))
+                  .catch(err => console.log('SW failed:', err));
+              }
+            `,
+          }}
+        />
       </body>
     </html>
   );
